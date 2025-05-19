@@ -5,64 +5,22 @@ public class BinarySearchTree {
     private Node raiz;
 
     public BinarySearchTree() {
-        raiz = null;
-    }
-
-    public boolean isEmpty() {
-        return raiz == null;
-    }
-
-    public Node root() {
-        return raiz;
-    }
-
-    public boolean isLeaf(Node n) {
-        return n != null && n.esquerda == null && n.direita == null;
-    }
-
-    public void preOrdem(Node no) {
-        if (no == null) return;
-        mostraNo(no);
-        preOrdem(no.esquerda);
-        preOrdem(no.direita);
-    }
-
-    public void inOrdem(Node no) {
-        if (no == null) return;
-        inOrdem(no.esquerda);
-        mostraNo(no);
-        inOrdem(no.direita);
-    }
-
-    public void posOrdem(Node no) {
-        if (no == null) return;
-        posOrdem(no.esquerda);
-        posOrdem(no.direita);
-        mostraNo(no);
-    }
-
-    public void mostraNo(Node no) {
-        if (no != null && no.palavra != null) {
-            System.out.println(no.palavra.getPalavra() + " (" + no.palavra.getOcorrencias() + ")");
-        }
+        this.raiz = null;
     }
 
     public void inserir(String palavra) {
-        raiz = inserirRec(raiz, palavra, null);
+        raiz = inserirRec(raiz, palavra);
     }
 
-    private Node inserirRec(Node atual, String palavra, Node parent) {
+    private Node inserirRec(Node atual, String palavra) {
         if (atual == null) {
-            Node novo = new Node(new Palavra(palavra));
-            // Adiciona parent se o Node tiver esse campo
-            // novo.parent = parent;
-            return novo;
+            return new Node(new Palavra(palavra));
         }
         int cmp = palavra.compareTo(atual.palavra.getPalavra());
         if (cmp < 0) {
-            atual.esquerda = inserirRec(atual.esquerda, palavra, atual);
+            atual.esquerda = inserirRec(atual.esquerda, palavra);
         } else if (cmp > 0) {
-            atual.direita = inserirRec(atual.direita, palavra, atual);
+            atual.direita = inserirRec(atual.direita, palavra);
         } else {
             atual.palavra.incrementaOcorrencias();
         }
@@ -82,23 +40,18 @@ public class BinarySearchTree {
         else return atual;
     }
 
-    public Node maximo(Node x) {
-        if (x == null) return null;
-        while (x.direita != null) {
-            x = x.direita;
-        }
-        return x;
+    public void inOrder() {
+        inOrderRec(raiz);
     }
 
-    public Node minimo(Node x) {
-        if (x == null) return null;
-        while (x.esquerda != null) {
-            x = x.esquerda;
+    private void inOrderRec(Node atual) {
+        if (atual != null) {
+            inOrderRec(atual.esquerda);
+            System.out.println(atual.palavra.getPalavra() + " (" + atual.palavra.getOcorrencias() + ")");
+            inOrderRec(atual.direita);
         }
-        return x;
     }
 
-    // Métodos de estatísticas e utilidades do projeto
     public int contarPalavras() {
         return contarPalavrasRec(raiz);
     }
