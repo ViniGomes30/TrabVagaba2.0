@@ -33,7 +33,7 @@ public class Main {
                     if (verificaCarregado()) buscarPalavra(sc);
                     break;
                 case 4:
-                    if (verificaCarregado()) arvore.inOrder();
+                    if (verificaCarregado()) arvore.inOrdem(null);
                     break;
                 case 5:
                     if (verificaCarregado()) verificarSinaisDepressao();
@@ -148,8 +148,8 @@ public class Main {
     }
 
     private static void sair() {
-        System.out.println("\nIntegrantes: NOME1, NOME2, NOME3");
-        System.out.println("Link do vídeo: https://youtu.be/seu_video");
+        System.out.println("\nIntegrantes: Diego Estevão, Ricardo Ikeda, Vinicius Gomes");
+        System.out.println("Link do vídeo: ");
         System.out.println("Encerrando aplicação...");
     }
 }
